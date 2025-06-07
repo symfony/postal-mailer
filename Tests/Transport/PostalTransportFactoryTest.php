@@ -47,20 +47,20 @@ class PostalTransportFactoryTest extends AbstractTransportFactoryTestCase
         $logger = new NullLogger();
 
         yield [
-            new Dsn('postal+api', 'postal.localhost', null, self::PASSWORD),
-            new PostalApiTransport(self::PASSWORD, 'postal.localhost', new MockHttpClient(), null, $logger),
+            new Dsn('postal+api', 'postal.localhost', null, self::USER),
+            new PostalApiTransport(self::USER, 'postal.localhost', new MockHttpClient(), null, $logger),
         ];
 
         yield [
-            new Dsn('postal', 'postal.localhost', null, self::PASSWORD),
-            new PostalApiTransport(self::PASSWORD, 'postal.localhost', new MockHttpClient(), null, $logger),
+            new Dsn('postal', 'postal.localhost', null, self::USER),
+            new PostalApiTransport(self::USER, 'postal.localhost', new MockHttpClient(), null, $logger),
         ];
     }
 
     public static function unsupportedSchemeProvider(): iterable
     {
         yield [
-            new Dsn('postal+foo', 'postal.localhost', null, self::PASSWORD),
+            new Dsn('postal+foo', 'postal.localhost', null, self::USER),
             'The "postal+foo" scheme is not supported; supported schemes for mailer "postal" are: "postal", "postal+api".',
         ];
     }
