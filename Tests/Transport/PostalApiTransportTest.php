@@ -63,7 +63,7 @@ class PostalApiTransportTest extends TestCase
             $this->assertSame(base64_encode('some attachment'), $body['attachments'][0]['data']);
             $this->assertSame('foo@bar.fr', $body['reply_to']);
 
-            return new JsonMockResponse(['message_id' => 'foobar'], [
+            return new JsonMockResponse(['data' => ['message_id' => 'foobar']], [
                 'http_code' => 200,
             ]);
         });
