@@ -86,11 +86,9 @@ class PostalApiTransportTest extends TestCase
 
     public function testSendThrowsForErrorResponse()
     {
-        $client = new MockHttpClient(static function (string $method, string $url, array $options): ResponseInterface {
-            return new JsonMockResponse(['message' => 'i\'m a teapot'], [
-                'http_code' => 418,
-            ]);
-        });
+        $client = new MockHttpClient(static fn (string $method, string $url, array $options): ResponseInterface => new JsonMockResponse(['message' => 'i\'m a teapot'], [
+            'http_code' => 418,
+        ]));
         $transport = new PostalApiTransport('TOKEN', 'postal.localhost', $client);
 
         $mail = new Email();
