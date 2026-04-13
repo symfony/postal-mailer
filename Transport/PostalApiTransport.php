@@ -73,14 +73,14 @@ final class PostalApiTransport extends AbstractApiTransport
     {
         $payload = [
             'from' => $envelope->getSender()->getAddress(),
-            'to' => array_map(fn (Address $address) => $address->getAddress(), $this->getRecipients($email, $envelope)),
+            'to' => array_map(static fn (Address $address) => $address->getAddress(), $this->getRecipients($email, $envelope)),
             'subject' => $email->getSubject(),
         ];
         if ($emails = $email->getCc()) {
-            $payload['cc'] = array_map(fn (Address $address) => $address->getAddress(), $emails);
+            $payload['cc'] = array_map(static fn (Address $address) => $address->getAddress(), $emails);
         }
         if ($emails = $email->getBcc()) {
-            $payload['bcc'] = array_map(fn (Address $address) => $address->getAddress(), $emails);
+            $payload['bcc'] = array_map(static fn (Address $address) => $address->getAddress(), $emails);
         }
         if ($email->getTextBody()) {
             $payload['plain_body'] = $email->getTextBody();
